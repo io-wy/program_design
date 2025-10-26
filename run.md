@@ -1,6 +1,6 @@
 # 运行方法（Windows / MinGW）
 
-本项目为 C++17 命令行程序，使用 CMake 构建。以下步骤基于 MinGW 环境，同时给出其他常用生成器的替代说明。
+本项目为 C++17 命令行程序，使用 CMake 构建。以下步骤基于 MinGW 环境，同时给出其他常用生成器的替代说明。这是傻逼ai文档
 
 ## 1. 环境准备
 - 安装 CMake（3.10+）
@@ -46,12 +46,9 @@ cd .\build
 - 退出时可选择是否保存数据到 `data/drugs.csv`。
 
 ## 5. 脚本化测试（批量输入）
-可将测试步骤写入文本文件，通过管道喂给程序：
+管道重定向：
 ```powershell
-# 示例1：查看报表(8) → 临期(6) → 退出(0) → 不保存(n)
 Get-Content .\test_input1.txt | .\build\pharmacy_cli.exe
-
-# 示例2：新增药品(1) → 保存(9) → 退出(0) → 保存确认(y)
 Get-Content .\test_input2.txt | .\build\pharmacy_cli.exe
 ```
 示例文件已提供：

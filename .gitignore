@@ -1,0 +1,26 @@
+# Build artifacts
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/cmake_install.cmake
+
+# Executables and objects
+*.exe
+*.dll
+*.lib
+*.obj
+*.o
+*.a
+
+# IDE and editor folders
+/.vscode/
+/.idea/
+
+# Logs and temp
+*.log
+*.tmp
+*.cache
+
+# Generated test output
+/test_output*.txt
