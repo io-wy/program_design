@@ -1,0 +1,3 @@
+F:/code/others/program_design/build/CMakeFiles/pharmacy_cli.dir
+F:/code/others/program_design/build/CMakeFiles/edit_cache.dir
+F:/code/others/program_design/build/CMakeFiles/rebuild_cache.dir

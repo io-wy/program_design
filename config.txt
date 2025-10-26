@@ -1,0 +1,8 @@
+# 默认保质期与临期阈值（单位：天）
+default_shelf_life_days=730
+near_expiry_threshold_days=30
+
+# 可选：按分类定义保质期（单位：天）
+# 语法：shelf_life.<分类>=<天数>
+shelf_life.Antibiotic=365
+shelf_life.Vitamin=730
