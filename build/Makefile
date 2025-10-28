@@ -128,6 +128,43 @@ pharmacy_cli/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/build
 .PHONY : pharmacy_cli/fast
 
+#=============================================================================
+# Target rules for targets named sqlite3
+
+# Build rule for target.
+sqlite3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 sqlite3
+.PHONY : sqlite3
+
+# fast build rule for target.
+sqlite3/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/build
+.PHONY : sqlite3/fast
+
+src/database.obj: src/database.cpp.obj
+.PHONY : src/database.obj
+
+# target to build an object file
+src/database.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.obj
+.PHONY : src/database.cpp.obj
+
+src/database.i: src/database.cpp.i
+.PHONY : src/database.i
+
+# target to preprocess a source file
+src/database.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.i
+.PHONY : src/database.cpp.i
+
+src/database.s: src/database.cpp.s
+.PHONY : src/database.s
+
+# target to generate assembly for a file
+src/database.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.s
+.PHONY : src/database.cpp.s
+
 src/drug.obj: src/drug.cpp.obj
 .PHONY : src/drug.obj
 
@@ -200,6 +237,54 @@ src/pharmacy.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/pharmacy.cpp.s
 .PHONY : src/pharmacy.cpp.s
 
+src/sqlite_db.obj: src/sqlite_db.cpp.obj
+.PHONY : src/sqlite_db.obj
+
+# target to build an object file
+src/sqlite_db.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/sqlite_db.cpp.obj
+.PHONY : src/sqlite_db.cpp.obj
+
+src/sqlite_db.i: src/sqlite_db.cpp.i
+.PHONY : src/sqlite_db.i
+
+# target to preprocess a source file
+src/sqlite_db.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/sqlite_db.cpp.i
+.PHONY : src/sqlite_db.cpp.i
+
+src/sqlite_db.s: src/sqlite_db.cpp.s
+.PHONY : src/sqlite_db.s
+
+# target to generate assembly for a file
+src/sqlite_db.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/sqlite_db.cpp.s
+.PHONY : src/sqlite_db.cpp.s
+
+third_party/sqlite/sqlite3.obj: third_party/sqlite/sqlite3.c.obj
+.PHONY : third_party/sqlite/sqlite3.obj
+
+# target to build an object file
+third_party/sqlite/sqlite3.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/third_party/sqlite/sqlite3.c.obj
+.PHONY : third_party/sqlite/sqlite3.c.obj
+
+third_party/sqlite/sqlite3.i: third_party/sqlite/sqlite3.c.i
+.PHONY : third_party/sqlite/sqlite3.i
+
+# target to preprocess a source file
+third_party/sqlite/sqlite3.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/third_party/sqlite/sqlite3.c.i
+.PHONY : third_party/sqlite/sqlite3.c.i
+
+third_party/sqlite/sqlite3.s: third_party/sqlite/sqlite3.c.s
+.PHONY : third_party/sqlite/sqlite3.s
+
+# target to generate assembly for a file
+third_party/sqlite/sqlite3.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/third_party/sqlite/sqlite3.c.s
+.PHONY : third_party/sqlite/sqlite3.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -209,6 +294,10 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... pharmacy_cli
+	@echo ... sqlite3
+	@echo ... src/database.obj
+	@echo ... src/database.i
+	@echo ... src/database.s
 	@echo ... src/drug.obj
 	@echo ... src/drug.i
 	@echo ... src/drug.s
@@ -218,6 +307,12 @@ help:
 	@echo ... src/pharmacy.obj
 	@echo ... src/pharmacy.i
 	@echo ... src/pharmacy.s
+	@echo ... src/sqlite_db.obj
+	@echo ... src/sqlite_db.i
+	@echo ... src/sqlite_db.s
+	@echo ... third_party/sqlite/sqlite3.obj
+	@echo ... third_party/sqlite/sqlite3.i
+	@echo ... third_party/sqlite/sqlite3.s
 .PHONY : help
 
 

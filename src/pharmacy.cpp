@@ -4,64 +4,58 @@
 #include <sstream>
 #include <iomanip>
 // #include <algorithm> // 由于MSVC头文件冲突，改用自实现Top5逻辑避免依赖
+#include <ctime>
+
+static std::string __dir_from_path(const std::string &path) {
+    auto pos = path.find_last_of("/\\");
+    if (pos == std::string::npos) return std::string(".");
+    return path.substr(0, pos);
+}
 
 Pharmacy::Pharmacy(const std::string &dataFile)
-    : dataFilePath(dataFile) {}
+    : dataFilePath(dataFile) {
+    dataDir = __dir_from_path(dataFilePath);
+    if (dataDir.empty() || dataDir == ".") dataDir = "data";
+#ifdef HAS_SQLITE
+    std::string dbPath = dataDir + "/pharmacy.db";
+    db = std::make_unique<SqliteDatabase>(dbPath);
+#else
+    db = std::make_unique<FileDatabase>(dataDir);
+#endif
+}
 
 void Pharmacy::run() {
+    if (!db->init()) {
+#ifdef HAS_SQLITE
+        std::cout << "[提示] SQLite 初始化失败，回退到文件存储。\n";
+        db = std::make_unique<FileDatabase>(dataDir);
+        if (!db->init()) { std::cout << "[错误] 存储初始化失败。\n"; return; }
+#else
+        std::cout << "[错误] 存储初始化失败。\n"; return;
+#endif
+    }
+    if (!login()) { std::cout << "[登录] 失败，程序退出。\n"; return; }
     loadData();
     menuLoop();
 }
 
 void Pharmacy::loadData() {
-    std::ifstream in(dataFilePath);
-    if (!in) {
-        std::cout << "[提示] 未找到数据文件，将在保存时创建：" << dataFilePath << "\n";
-        return;
-    }
-    std::string header;
-    std::getline(in, header); // 跳过表头
-    std::string line;
-    while (std::getline(in, line)) {
-        if (line.empty()) continue;
-        std::istringstream iss(line);
-        std::string token;
-        std::vector<std::string> tokens;
-        while (std::getline(iss, token, ',')) tokens.push_back(token);
-        if (tokens.size() < 7) continue; // 至少需要前7列
-        Drug d;
-        d.name = tokens[0];
-        d.category = tokens[1];
-        d.manufacturer = tokens[2];
-        d.specification = tokens[3];
-        d.productionDate = tokens[4];
-        d.stock = std::stoi(tokens[5]);
-        d.totalSold = std::stoi(tokens[6]);
-        if (tokens.size() >= 9) {
-            d.shelfLifeDays = std::stoi(tokens[7]);
-            d.nearExpiryThresholdDays = std::stoi(tokens[8]);
-        }
-        drugs.push_back(d);
-    }
+    drugs = db->loadDrugs();
     std::cout << "[数据] 载入药品记录数：" << drugs.size() << "\n";
 }
 
 void Pharmacy::saveData() {
-    std::ofstream out(dataFilePath);
-    if (!out) { std::cout << "[错误] 无法写入数据文件：" << dataFilePath << "\n"; return; }
-    out << "name,category,manufacturer,specification,production_date,stock,total_sold,shelf_life_days,near_expiry_days\n";
-    for (const auto &d : drugs) {
-        out << d.name << "," << d.category << "," << d.manufacturer << "," 
-            << d.specification << "," << d.productionDate << ","
-            << d.stock << "," << d.totalSold << ","
-            << d.shelfLifeDays << "," << d.nearExpiryThresholdDays << "\n";
+    if (db->saveDrugs(drugs)) {
+        std::cout << "[数据] 保存成功，共 " << drugs.size() << " 条记录。\n";
+    } else {
+        std::cout << "[错误] 保存失败。\n";
     }
-    std::cout << "[数据] 保存成功，共 " << drugs.size() << " 条记录。\n";
 }
 
 void Pharmacy::menuLoop() {
     while (true) {
         std::cout << "\n===== 药房销售系统（命令行） =====\n";
+        std::cout << "登录用户：" << currentUser.username << " (" << currentUser.role << ")\n";
         std::cout << "1. 新增药品\n";
         std::cout << "2. 查询药品（按名称）\n";
         std::cout << "3. 查询药品（按分类）\n";
@@ -72,6 +66,7 @@ void Pharmacy::menuLoop() {
         std::cout << "8. 销售统计报表\n";
         std::cout << "9. 保存数据\n";
         std::cout << "10. 重新载入数据\n";
+        std::cout << "11. 查看销售记录\n";
         std::cout << "0. 退出\n";
         std::cout << "请选择操作：";
         int choice; if (!(std::cin >> choice)) return; std::cin.ignore(1024, '\n');
@@ -79,13 +74,14 @@ void Pharmacy::menuLoop() {
             case 1: addDrug(); break;
             case 2: queryByName(); break;
             case 3: queryByCategory(); break;
-            case 4: modifyDrug(); break;
-            case 5: deleteDrug(); break;
+            case 4: if (currentUser.role == "admin") modifyDrug(); else std::cout << "[权限] 仅管理员可修改。\n"; break;
+            case 5: if (currentUser.role == "admin") deleteDrug(); else std::cout << "[权限] 仅管理员可删除。\n"; break;
             case 6: showNearExpiry(); break;
             case 7: simulateSale(); break;
             case 8: salesReport(); break;
             case 9: saveData(); break;
             case 10: drugs.clear(); loadData(); break;
+            case 11: viewSales(); break;
             case 0: onExit(); return;
             default: std::cout << "无效选择，请重试。\n"; break;
         }
@@ -188,6 +184,18 @@ void Pharmacy::simulateSale() {
     if (d.stock < qty) { std::cout << "[销售] 库存不足，当前库存：" << d.stock << "\n"; return; }
     d.stock -= qty; d.totalSold += qty;
     std::cout << "[销售] 成功。剩余库存：" << d.stock << ", 累计销量：" << d.totalSold << "\n";
+    // 记录销售到数据库
+    std::time_t now = std::time(nullptr);
+    std::tm tmNow{};
+#ifdef _WIN32
+    localtime_s(&tmNow, &now);
+#else
+    tmNow = *std::localtime(&now);
+#endif
+    char buf[32];
+    std::strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%S", &tmNow);
+    SaleRecord rec{ d.name, qty, std::string(buf), currentUser.username };
+    db->appendSale(rec);
 }
 
 void Pharmacy::salesReport() {
@@ -216,4 +224,29 @@ void Pharmacy::printDrug(const Drug &d) const {
               << ", 生产厂家: " << d.manufacturer << ", 规格: " << d.specification
               << ", 生产日期: " << d.productionDate
               << ", 库存: " << d.stock << ", 累计销量: " << d.totalSold << "\n";
+}
+
+bool Pharmacy::login() {
+    auto users = db->loadUsers();
+    if (users.empty()) { std::cout << "[登录] 无用户记录。\n"; return false; }
+    for (int attempt = 0; attempt < 3; ++attempt) {
+        std::string u, p; std::cout << "用户名："; std::getline(std::cin, u); std::cout << "密码："; std::getline(std::cin, p);
+        for (const auto &user : users) {
+            if (user.username == u && user.password == p) {
+                currentUser = user; loggedIn = true; std::cout << "[登录] 成功。\n"; return true;
+            }
+        }
+        std::cout << "[登录] 账号或密码错误。\n";
+    }
+    return false;
+}
+
+void Pharmacy::viewSales() {
+    auto list = db->loadSales();
+    if (list.empty()) { std::cout << "[销售] 暂无记录。\n"; return; }
+    std::cout << "\n=== 销售记录（最新在后） ===\n";
+    for (const auto &rec : list) {
+        std::cout << rec.timestamp << " | 药品：" << rec.drugName << " | 数量：" << rec.quantity
+                  << " | 操作员：" << rec.operatorName << "\n";
+    }
 }

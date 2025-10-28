@@ -63,10 +63,12 @@ CMAKE_BINARY_DIR = F:\code\others\program_design\build
 
 # The main recursive "all" target.
 all: CMakeFiles/pharmacy_cli.dir/all
+all: CMakeFiles/sqlite3.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/pharmacy_cli.dir/codegen
+codegen: CMakeFiles/sqlite3.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,21 +77,22 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/pharmacy_cli.dir/clean
+clean: CMakeFiles/sqlite3.dir/clean
 .PHONY : clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/pharmacy_cli.dir
 
 # All Build rule for target.
-CMakeFiles/pharmacy_cli.dir/all:
+CMakeFiles/pharmacy_cli.dir/all: CMakeFiles/sqlite3.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=1,2,3,4 "Built target pharmacy_cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target pharmacy_cli"
 .PHONY : CMakeFiles/pharmacy_cli.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/pharmacy_cli.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\code\others\program_design\build\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\code\others\program_design\build\CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/pharmacy_cli.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start F:\code\others\program_design\build\CMakeFiles 0
 .PHONY : CMakeFiles/pharmacy_cli.dir/rule
@@ -101,13 +104,45 @@ pharmacy_cli: CMakeFiles/pharmacy_cli.dir/rule
 # codegen rule for target.
 CMakeFiles/pharmacy_cli.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target pharmacy_cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target pharmacy_cli"
 .PHONY : CMakeFiles/pharmacy_cli.dir/codegen
 
 # clean rule for target.
 CMakeFiles/pharmacy_cli.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/clean
 .PHONY : CMakeFiles/pharmacy_cli.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sqlite3.dir
+
+# All Build rule for target.
+CMakeFiles/sqlite3.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=7,8 "Built target sqlite3"
+.PHONY : CMakeFiles/sqlite3.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sqlite3.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\code\others\program_design\build\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/sqlite3.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\code\others\program_design\build\CMakeFiles 0
+.PHONY : CMakeFiles/sqlite3.dir/rule
+
+# Convenience name for target.
+sqlite3: CMakeFiles/sqlite3.dir/rule
+.PHONY : sqlite3
+
+# codegen rule for target.
+CMakeFiles/sqlite3.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=F:\code\others\program_design\build\CMakeFiles --progress-num=7,8 "Finished codegen for target sqlite3"
+.PHONY : CMakeFiles/sqlite3.dir/codegen
+
+# clean rule for target.
+CMakeFiles/sqlite3.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/clean
+.PHONY : CMakeFiles/sqlite3.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
