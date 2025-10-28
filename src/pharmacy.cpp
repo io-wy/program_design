@@ -201,7 +201,6 @@ void Pharmacy::simulateSale() {
 void Pharmacy::salesReport() {
     int totalSoldAll = 0, totalStockAll = 0;
     for (const auto &d : drugs) { totalSoldAll += d.totalSold; totalStockAll += d.stock; }
-    // 计算销量Top5（不依赖<algorithm>）
     std::vector<Drug> topList;
     topList.reserve(5);
     for (const auto &d : drugs) {
