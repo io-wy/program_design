@@ -1,6 +1,8 @@
-name,category,production_date,stock,total_sold
-Amoxicillin,Antibiotic,2024-01-10,100,20
-VitaminC,Vitamin,2023-11-01,50,15
-TestDrug,TestCat,2024-10-01,10,0
-TestDrug,TestCat,2024-10-01,10,0
-sb,666,2025-1-2,666,0
+name,category,manufacturer,specification,production_date,stock,total_sold,shelf_life_days,near_expiry_days
+Amoxicillin,Antibiotic,辉瑞制药,500mg*20片,2024-01-10,100,20,60,10
+VitaminC,Vitamin,拜耳制药,100mg*30片,2023-11-01,50,15,60,10
+TestDrug,TestCat,测试厂家,10ml*5支,2024-10-01,10,0,60,10
+TestDrug,TestCat,测试厂家,10ml*5支,2024-10-01,10,0,60,10
+sb,666,未知厂家,未知规格,2025-1-2,666,0,60,10
+阿莫西林,处方药,njupy,一盒3粒,2023-1-1,13,0,60,10
+1,处方药,njupt,液体,2025-1-1,1,0,15,1

@@ -128,6 +128,30 @@ pharmacy_cli/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/build
 .PHONY : pharmacy_cli/fast
 
+src/drug.obj: src/drug.cpp.obj
+.PHONY : src/drug.obj
+
+# target to build an object file
+src/drug.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/drug.cpp.obj
+.PHONY : src/drug.cpp.obj
+
+src/drug.i: src/drug.cpp.i
+.PHONY : src/drug.i
+
+# target to preprocess a source file
+src/drug.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/drug.cpp.i
+.PHONY : src/drug.cpp.i
+
+src/drug.s: src/drug.cpp.s
+.PHONY : src/drug.s
+
+# target to generate assembly for a file
+src/drug.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/drug.cpp.s
+.PHONY : src/drug.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -152,6 +176,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/pharmacy.obj: src/pharmacy.cpp.obj
+.PHONY : src/pharmacy.obj
+
+# target to build an object file
+src/pharmacy.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/pharmacy.cpp.obj
+.PHONY : src/pharmacy.cpp.obj
+
+src/pharmacy.i: src/pharmacy.cpp.i
+.PHONY : src/pharmacy.i
+
+# target to preprocess a source file
+src/pharmacy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/pharmacy.cpp.i
+.PHONY : src/pharmacy.cpp.i
+
+src/pharmacy.s: src/pharmacy.cpp.s
+.PHONY : src/pharmacy.s
+
+# target to generate assembly for a file
+src/pharmacy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/pharmacy.cpp.s
+.PHONY : src/pharmacy.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -161,9 +209,15 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... pharmacy_cli
+	@echo ... src/drug.obj
+	@echo ... src/drug.i
+	@echo ... src/drug.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/pharmacy.obj
+	@echo ... src/pharmacy.i
+	@echo ... src/pharmacy.s
 .PHONY : help
 
 
