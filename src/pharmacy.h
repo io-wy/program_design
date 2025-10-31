@@ -2,7 +2,6 @@
 #define PHARMACY_H
 
 #include "drug.h"
-#include "database.h"
 #ifdef HAS_SQLITE
 #include "sqlite_db.h"
 #endif
@@ -26,10 +25,17 @@ private:
     void loadData();
     void saveData();
     void menuLoop();
+    // 二级菜单（五类）
+    void menuDrugs();
+    void menuInventory();
+    void menuSales();
+    void menuStats();
+    void menuSystem();
     void onExit();
     bool login();
     std::string getHiddenPassword();
     void viewSales();
+    // 删除销售记录交互功能已移除
     
     // 药品管理功能
     void addDrug();

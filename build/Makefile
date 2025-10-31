@@ -141,30 +141,6 @@ sqlite3/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\sqlite3.dir\build.make CMakeFiles/sqlite3.dir/build
 .PHONY : sqlite3/fast
 
-src/database.obj: src/database.cpp.obj
-.PHONY : src/database.obj
-
-# target to build an object file
-src/database.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.obj
-.PHONY : src/database.cpp.obj
-
-src/database.i: src/database.cpp.i
-.PHONY : src/database.i
-
-# target to preprocess a source file
-src/database.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.i
-.PHONY : src/database.cpp.i
-
-src/database.s: src/database.cpp.s
-.PHONY : src/database.s
-
-# target to generate assembly for a file
-src/database.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\pharmacy_cli.dir\build.make CMakeFiles/pharmacy_cli.dir/src/database.cpp.s
-.PHONY : src/database.cpp.s
-
 src/drug.obj: src/drug.cpp.obj
 .PHONY : src/drug.obj
 
@@ -295,9 +271,6 @@ help:
 	@echo ... rebuild_cache
 	@echo ... pharmacy_cli
 	@echo ... sqlite3
-	@echo ... src/database.obj
-	@echo ... src/database.i
-	@echo ... src/database.s
 	@echo ... src/drug.obj
 	@echo ... src/drug.i
 	@echo ... src/drug.s

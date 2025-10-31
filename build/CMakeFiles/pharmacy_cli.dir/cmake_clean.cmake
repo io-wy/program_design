@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/pharmacy_cli.dir/src/database.cpp.obj"
-  "CMakeFiles/pharmacy_cli.dir/src/database.cpp.obj.d"
   "CMakeFiles/pharmacy_cli.dir/src/drug.cpp.obj"
   "CMakeFiles/pharmacy_cli.dir/src/drug.cpp.obj.d"
   "CMakeFiles/pharmacy_cli.dir/src/main.cpp.obj"
