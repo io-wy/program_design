@@ -28,19 +28,26 @@ private:
     void menuLoop();
     void onExit();
     bool login();
+    std::string getHiddenPassword();
     void viewSales();
     
     // 药品管理功能
     void addDrug();
     void queryByName();
     void queryByCategory();
+    void showAllDrugs();
     void modifyDrug();
     void deleteDrug();
     
     // 其他功能
     void showNearExpiry();
+    void showExpiredCount();
     void simulateSale();
     void salesReport();
+    void processReturn();
+    void processWastage();
+    void analyzeTopBottom();
+    void categorySalesTrend();
     void printDrug(const Drug &d) const;
 };
 

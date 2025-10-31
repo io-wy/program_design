@@ -1,5 +1,5 @@
 CMakeFiles/pharmacy_cli.dir/src/main.cpp.obj: \
- F:\code\others\program_design\src\main.cpp \
+ F:\code\others\program_design_exe\src\main.cpp \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/iostream \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/requires_hosted.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
@@ -133,19 +133,19 @@ CMakeFiles/pharmacy_cli.dir/src/main.cpp.obj: \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/ostream.tcc \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/istream \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/istream.tcc \
- F:\code\others\program_design\src\pharmacy.h \
- F:\code\others\program_design\src\drug.h \
+ F:\code\others\program_design_exe\src\pharmacy.h \
+ F:\code\others\program_design_exe\src\drug.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/ctime \
  C:/mingw64/mingw64/x86_64-w64-mingw32/include/time.h \
  C:/mingw64/mingw64/x86_64-w64-mingw32/include/_timeval.h \
  C:/mingw64/mingw64/x86_64-w64-mingw32/include/pthread_time.h \
- F:\code\others\program_design\src\database.h \
+ F:\code\others\program_design_exe\src\database.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/vector \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/stl_uninitialized.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/stl_vector.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/stl_bvector.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/vector.tcc \
- F:\code\others\program_design\src\sqlite_db.h \
+ F:\code\others\program_design_exe\src\sqlite_db.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/memory \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/stl_tempbuf.h \
  C:/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/bits/stl_raw_storage_iter.h \

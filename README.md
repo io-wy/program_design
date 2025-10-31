@@ -6,16 +6,15 @@
 - 药品数据管理：新增、查询（按名称/分类）、修改、删除
 - 库存与销售：模拟销售（库存不足提示）、累计销售量维护
 - 临期药品：按配置的保质期与临期阈值，显示临期清单
-- 报表：简单销售统计（总销量、Top销量、总库存）
-- 文件持久化：CSV读写（`data/drugs.csv`），配置读取（`config.txt`）
+- 报表：销售统计（总销量、全量排行、总库存）
+- 数据持久化：SQLite 数据库（`data/pharmacy.db`），配置读取（`config.txt`）
 
-## 数据格式
-- `drugs.csv` 列：`name,category,production_date,stock,total_sold`
+## 数据库结构（SQLite）
+- 表 `drugs`：`name, category, manufacturer, specification, production_date, stock, total_sold, shelf_life_days, near_expiry_days`
+- 表 `users`：`username, password, role`
+- 表 `sales`：`id, drug_name, quantity, timestamp, operator`
   - `production_date` 格式：`YYYY-MM-DD`
-- `config.txt` 支持键值：
-  - `default_shelf_life_days=730`
-  - `near_expiry_threshold_days=30`
-  - `shelf_life.<分类>=<天数>` 示例：`shelf_life.Antibiotic=365`
+  - 默认管理员账号：`admin/admin`
 
 ## 构建与运行（CMake）
 ```bash
@@ -32,7 +31,7 @@ cmake --build .
 - MinGW 用户可用 `-G "MinGW Makefiles"` 构建。
 
 ## 运行说明
-- 程序启动会尝试读取 `config.txt` 与 `data/drugs.csv`
+- 程序启动会初始化并连接 `data/pharmacy.db`
 - 所有操作通过菜单进行；支持多次操作后再退出
 - 退出前可手动保存，或在退出时选择保存
 

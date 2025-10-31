@@ -14,8 +14,9 @@ struct User {
 struct SaleRecord {
     std::string drugName;
     int quantity = 0;
-    std::string timestamp;     // ISO 8601 字符串
+    std::string timestamp;    
     std::string operatorName;  // 执行销售的用户
+    std::string type = "SALE"; // 交易类型：SALE/RETURN/WASTAGE
 };
 
 class IDatabase {
@@ -31,28 +32,6 @@ public:
 
     virtual bool appendSale(const SaleRecord& record) = 0;
     virtual std::vector<SaleRecord> loadSales() = 0;
-};
-
-class FileDatabase : public IDatabase {
-public:
-    explicit FileDatabase(const std::string &dataDir);
-    bool init() override;
-
-    std::vector<Drug> loadDrugs() override;
-    bool saveDrugs(const std::vector<Drug>& drugs) override;
-
-    std::vector<User> loadUsers() override;
-    bool saveUsers(const std::vector<User>& users) override;
-
-    bool appendSale(const SaleRecord& record) override;
-    std::vector<SaleRecord> loadSales() override;
-
-private:
-    std::string dataDir;
-    std::string drugsPath() const;
-    std::string usersPath() const;
-    std::string salesPath() const;
-    void ensureDirExists() const;
 };
 
 #endif // DATABASE_H

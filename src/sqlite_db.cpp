@@ -73,6 +73,20 @@ bool SqliteDatabase::init() {
          "drug_name TEXT, quantity INTEGER, timestamp TEXT, operator TEXT\n"
          ");");
 
+    // 迁移：为 sales 表添加交易类型列（type），用于区分 SALE/RETURN/WASTAGE
+    sqlite3_stmt *stmtInfo = nullptr;
+    bool hasTypeCol = false;
+    if (sqlite3_prepare_v2(static_cast<sqlite3*>(dbHandle), "PRAGMA table_info(sales)", -1, &stmtInfo, nullptr) == SQLITE_OK) {
+        while (sqlite3_step(stmtInfo) == SQLITE_ROW) {
+            const unsigned char *col = sqlite3_column_text(stmtInfo, 1);
+            if (col && std::string(reinterpret_cast<const char*>(col)) == "type") { hasTypeCol = true; break; }
+        }
+    }
+    sqlite3_finalize(stmtInfo);
+    if (!hasTypeCol) {
+        exec("ALTER TABLE sales ADD COLUMN type TEXT DEFAULT 'SALE'");
+    }
+
     // 默认管理员
     const char *sqlCount = "SELECT COUNT(*) FROM users";
     sqlite3_stmt *stmt = nullptr;
@@ -172,13 +186,14 @@ bool SqliteDatabase::saveUsers(const std::vector<User>& users) {
 }
 
 bool SqliteDatabase::appendSale(const SaleRecord& record) {
-    const char *sql = "INSERT INTO sales(drug_name, quantity, timestamp, operator) VALUES(?,?,?,?)";
+    const char *sql = "INSERT INTO sales(drug_name, quantity, timestamp, operator, type) VALUES(?,?,?,?,?)";
     sqlite3_stmt *stmt = nullptr;
     if (sqlite3_prepare_v2(static_cast<sqlite3*>(dbHandle), sql, -1, &stmt, nullptr) != SQLITE_OK) return false;
     sqlite3_bind_text(stmt, 1, record.drugName.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(stmt, 2, record.quantity);
     sqlite3_bind_text(stmt, 3, record.timestamp.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 4, record.operatorName.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 5, record.type.c_str(), -1, SQLITE_TRANSIENT);
     int rc = sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     return rc == SQLITE_DONE;
@@ -186,7 +201,7 @@ bool SqliteDatabase::appendSale(const SaleRecord& record) {
 
 std::vector<SaleRecord> SqliteDatabase::loadSales() {
     std::vector<SaleRecord> list;
-    const char *sql = "SELECT drug_name, quantity, timestamp, operator FROM sales ORDER BY id ASC";
+    const char *sql = "SELECT drug_name, quantity, timestamp, operator, type FROM sales ORDER BY id ASC";
     sqlite3_stmt *stmt = nullptr;
     if (sqlite3_prepare_v2(static_cast<sqlite3*>(dbHandle), sql, -1, &stmt, nullptr) != SQLITE_OK) return list;
     while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -195,6 +210,8 @@ std::vector<SaleRecord> SqliteDatabase::loadSales() {
         r.quantity = sqlite3_column_int(stmt, 1);
         r.timestamp = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
         r.operatorName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+        const unsigned char *t = sqlite3_column_text(stmt, 4);
+        r.type = t ? reinterpret_cast<const char*>(t) : std::string("SALE");
         list.push_back(r);
     }
     sqlite3_finalize(stmt);
